@@ -1,6 +1,9 @@
 defmodule Calendarific.Holiday do
   @derive [Poison.Encoder]
-  alias Calendarific.HttpClient
+  alias Calendarific.{
+    HttpClient,
+    Holiday
+  }
 
   @type country :: %{
           id: String.t(),
@@ -49,14 +52,11 @@ defmodule Calendarific.Holiday do
   @endpoint "holidays"
 
   def fetch(country_code, year) do
-    case @endpoint |> HttpClient.request(country: country_code, year: year) do
-      {:ok, body} ->
-        Poison.decode!(body, as: %{"response" => %{"holidays" => [%Calendarific.Holiday{}]}})[
-          "response"
-        ]["holidays"]
-
-      {:error, reason} ->
-        {:error, reason}
-    end
+    HttpClient.request(:get, @endpoint, country: country_code, year: year)
+    |> Map.get("response")
+    |> Map.get("holidays")
+    |> Enum.map(fn h ->
+      h |> Poison.encode!() |> Poison.decode!(as: %Holiday{})
+    end)
   end
 end

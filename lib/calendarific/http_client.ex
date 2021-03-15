@@ -1,28 +1,31 @@
 defmodule Calendarific.HttpClient do
-  def request(url, params \\ []) do
-    HTTPoison.request(
-      :get,
-      "https://calendarific.com/api/v2/" <> url,
-      [],
-      [{"Accept", "application/json"}],
-      params: [api_key: Application.fetch_env!(:calendarific, :api_key)] ++ params
-    )
-    |> parse
+  use HTTPoison.Base
+
+  def request(:get, url, params) do
+    :hackney_trace.enable(:max, :io)
+
+    case get(url, [], params: [api_key: api_key()] ++ params) do
+      {:ok, %HTTPoison.Response{status_code: code, body: body}} when code in 200..299 ->
+        body
+
+      {:ok, %HTTPoison.Response{body: body}} ->
+        raise "Request returned non-200 response: #{body}"
+
+      {:error, error} ->
+        raise "Calendarific.HttpClient error: #{error}"
+    end
   end
 
-  defp parse({:ok, %HTTPoison.Response{body: body, status_code: 200}}) do
-    {:ok, body}
+  defp api_key do
+    Application.fetch_env!(:calendarific, :api_key)
   end
 
-  defp parse({:ok, %HTTPoison.Response{body: body, status_code: 204}}) do
-    {:ok, body}
+  def process_request_url(url) do
+    "https://calendarific.com/api/v2/" <> url
   end
 
-  defp parse({:ok, %HTTPoison.Response{status_code: code} = response}) do
-    {:error, "Expected a 200, received #{code}"}
-  end
-
-  defp parse({:error, %HTTPoison.Error{reason: reason}}) do
-    {:error, reason}
+  def process_response_body(body) do
+    body
+    |> Poison.decode!()
   end
 end
