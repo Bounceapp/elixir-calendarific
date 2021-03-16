@@ -23,5 +23,5 @@ defmodule Calendarific do
       }
 
   """
-  defdelegate holidays(country_code, year), to: Calendarific.Holiday, as: :fetch
+  defdelegate holidays(country_code, year), to: Calendarific.Apis.Holidays, as: :fetch
 end
