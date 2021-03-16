@@ -2,8 +2,6 @@ defmodule Calendarific.HttpClient do
   use HTTPoison.Base
 
   def request(:get, url, params) do
-    :hackney_trace.enable(:max, :io)
-
     case get(url, [], params: [api_key: api_key()] ++ params) do
       {:ok, %HTTPoison.Response{status_code: code, body: body}} when code in 200..299 ->
         body

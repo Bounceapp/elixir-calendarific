@@ -9,6 +9,13 @@ defmodule Calendarific.Apis.Holidays do
   def fetch(country_code, year) do
     HttpClient.request(:get, @endpoint, country: country_code, year: year)
     |> Map.get("response")
+    |> parse_holidays()
+  end
+
+  defp parse_holidays([]), do: []
+
+  defp parse_holidays(response) do
+    response
     |> Map.get("holidays")
     |> Enum.map(fn h ->
       h
