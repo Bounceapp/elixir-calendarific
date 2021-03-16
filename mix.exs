@@ -7,8 +7,18 @@ defmodule Calendarific.MixProject do
       version: "0.1.1",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
-      description: "A wrapper for the holiday API Calendarific",
-      deps: deps()
+      description: "An elixir wrapper for the holiday API Calendarific",
+      package: package(),
+      deps: deps(),
+      # Docs
+      name: "Calendarific",
+      source_url: "https://github.com/Bounceapp/elixir-calendarific",
+      homepage_url: "https://github.com/Bounceapp/elixir-calendarific",
+      docs: [
+        # The main page in the docs
+        main: "Calendarific",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -21,7 +31,16 @@ defmodule Calendarific.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.8"},
-      {:poison, "~> 4.0"}
+      {:poison, "~> 4.0"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
+    ]
+  end
+
+  defp package() do
+    [
+      files: ~w(lib .formatter.exs mix.exs README* LICENSE*),
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/Bounceapp/elixir-calendarific"}
     ]
   end
 end
