@@ -31,7 +31,7 @@ config :calendarific, api_key: "YOUR API KEY"
 To fetch holidays for a given country and year, you can use the `holidays/2` method:
 
 ```elixir
-iex> Calendarific.holidays("US", 2021)
+iex> Calendarific.holidays(country: "US", year: 2021)
 [
   %Calendarific.Types.Holiday{
     country: %Calendarific.Types.Country{id: "us", name: "United States"},
