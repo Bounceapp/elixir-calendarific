@@ -41,6 +41,8 @@ defmodule Calendarific.Types do
 
   defmodule Holiday do
     @type holiday :: %{
+            id: number(),
+            uuid: binary(),
             name: String.t(),
             description: String.t(),
             country: Country.t(),
@@ -51,6 +53,8 @@ defmodule Calendarific.Types do
           }
 
     defstruct [
+      :id,
+      :uuid,
       :name,
       :description,
       :country,

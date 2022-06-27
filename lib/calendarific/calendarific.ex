@@ -8,7 +8,7 @@ defmodule Calendarific do
 
   ## Examples
 
-      iex> Calendarific.holidays("US", 2021)
+      iex> Calendarific.holidays(country: "US", year: 2021)
       [
         %Calendarific.Types.Holiday{
           country: %Calendarific.Types.Country{id: "us", name: "United States"},
@@ -25,5 +25,5 @@ defmodule Calendarific do
         ...
       ]
   """
-  defdelegate holidays(country_code, year), to: Calendarific.Apis.Holidays, as: :fetch
+  defdelegate holidays(params), to: Calendarific.Apis.Holidays, as: :fetch
 end

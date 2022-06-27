@@ -6,8 +6,15 @@ defmodule Calendarific.Apis.Holidays do
 
   @endpoint "holidays"
 
-  def fetch(country_code, year) do
-    HttpClient.request(:get, @endpoint, country: country_code, year: year)
+  @spec fetch(params) :: {:ok, list(Holiday)} | {:error, any()}
+        when params: %{
+               :country_code => String.t(),
+               :year => number(),
+               optional(:language) => String.t(),
+               optional(:uuid) => boolean()
+             }
+  def fetch(params) do
+    HttpClient.request(:get, @endpoint, params)
     |> Map.get("response")
     |> parse_holidays()
   end
