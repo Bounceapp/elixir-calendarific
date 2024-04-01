@@ -9,7 +9,7 @@ This package can be installed by adding `calendarific` to your list of dependenc
 ```elixir
 def deps do
   [
-    {:calendarific, "~> 0.1.3"}
+    {:calendarific, "~> 0.1.4"}
   ]
 end
 ```
@@ -56,4 +56,3 @@ The docs can be found at [https://hexdocs.pm/calendarific](https://hexdocs.pm/ca
 # License
 
 More info at [LICENSE](LICENSE).
-
