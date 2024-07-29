@@ -30,8 +30,8 @@ defmodule Calendarific.MixProject do
 
   defp deps do
     [
-      {:httpoison, "~> 2.0.0"},
-      {:poison, "~> 4.0"},
+      {:httpoison, "~> 2.0"},
+      {:poison, "~> 6.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
