@@ -4,7 +4,7 @@ defmodule Calendarific.Apis.Holidays do
   alias Calendarific.HttpClient
   alias Calendarific.Types
 
-  @endpoint "holidays"
+  @endpoint "holidays/json"
 
   @spec fetch(params) :: {:ok, list(Holiday)} | {:error, any()}
         when params: %{
