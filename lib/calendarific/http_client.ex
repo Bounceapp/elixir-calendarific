@@ -10,7 +10,7 @@ defmodule Calendarific.HttpClient do
         raise "Request returned non-200 response: #{body}"
 
       {:error, error} ->
-        raise "Calendarific.HttpClient error: #{error}"
+        raise "Calendarific.HttpClient error: #{inspect(error)}"
     end
   end
 
@@ -24,6 +24,6 @@ defmodule Calendarific.HttpClient do
 
   def process_response_body(body) do
     body
-    |> Poison.decode!()
+    |> Jason.decode!()
   end
 end

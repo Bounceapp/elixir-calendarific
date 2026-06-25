@@ -1,6 +1,4 @@
 defmodule Calendarific.Apis.Holidays do
-  @derive [Poison.Encoder]
-
   alias Calendarific.HttpClient
   alias Calendarific.Types
 
@@ -24,16 +22,62 @@ defmodule Calendarific.Apis.Holidays do
   defp parse_holidays(response) do
     response
     |> Map.get("holidays")
-    |> Enum.map(fn h ->
-      h
-      |> Poison.encode!()
-      |> Poison.decode!(
-        as: %Types.Holiday{
-          country: %Types.Country{},
-          date: %Types.Date{datetime: %Types.DateTime{}},
-          states: [%Types.State{}]
-        }
-      )
+    |> Enum.map(&parse_holiday/1)
+  end
+
+  defp parse_holiday(h) do
+    %Types.Holiday{
+      id: h["id"],
+      uuid: h["uuid"],
+      name: h["name"],
+      description: h["description"],
+      country: parse_country(h["country"]),
+      date: parse_date(h["date"]),
+      type: h["type"],
+      locations: h["locations"],
+      states: parse_states(h["states"])
+    }
+  end
+
+  defp parse_country(nil), do: nil
+
+  defp parse_country(map) do
+    %Types.Country{
+      id: map["id"],
+      name: map["name"]
+    }
+  end
+
+  defp parse_date(nil), do: nil
+
+  defp parse_date(map) do
+    %Types.Date{
+      iso: map["iso"],
+      datetime: parse_datetime(map["datetime"])
+    }
+  end
+
+  defp parse_datetime(nil), do: nil
+
+  defp parse_datetime(map) do
+    %Types.DateTime{
+      year: map["year"],
+      month: map["month"],
+      day: map["day"]
+    }
+  end
+
+  defp parse_states(states) when is_list(states) do
+    Enum.map(states, fn s ->
+      %Types.State{
+        id: s["id"],
+        abbrev: s["abbrev"],
+        name: s["name"],
+        exception: s["exception"],
+        iso: s["iso"]
+      }
     end)
   end
+
+  defp parse_states(states), do: states
 end
