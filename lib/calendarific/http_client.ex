@@ -24,6 +24,6 @@ defmodule Calendarific.HttpClient do
 
   def process_response_body(body) do
     body
-    |> Jason.decode!()
+    |> JSON.decode!()
   end
 end
