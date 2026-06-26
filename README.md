@@ -9,10 +9,12 @@ This package can be installed by adding `calendarific` to your list of dependenc
 ```elixir
 def deps do
   [
-    {:calendarific, "~> 0.1.6"}
+    {:calendarific, "~> 0.2.0"}
   ]
 end
 ```
+
+> **Note:** Starting with `0.2.0`, this library uses Elixir's built-in `JSON` module and therefore requires **Elixir 1.18 or later**. Use `~> 0.1` if you need to support older Elixir versions.
 
 # Configuration
 
