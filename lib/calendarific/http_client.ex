@@ -7,7 +7,7 @@ defmodule Calendarific.HttpClient do
         body
 
       {:ok, %HTTPoison.Response{body: body}} ->
-        raise "Request returned non-200 response: #{body}"
+        raise "Request returned non-200 response: #{inspect(body)}"
 
       {:error, error} ->
         raise "Calendarific.HttpClient error: #{inspect(error)}"
