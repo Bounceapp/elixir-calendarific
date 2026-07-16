@@ -4,7 +4,7 @@ defmodule Calendarific.MixProject do
   def project do
     [
       app: :calendarific,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       description: "An elixir wrapper for the holiday API Calendarific",
@@ -30,7 +30,7 @@ defmodule Calendarific.MixProject do
 
   defp deps do
     [
-      {:httpoison, "~> 2.0"},
+      {:httpoison, "~> 3.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end

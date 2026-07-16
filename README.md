@@ -9,7 +9,7 @@ This package can be installed by adding `calendarific` to your list of dependenc
 ```elixir
 def deps do
   [
-    {:calendarific, "~> 0.2.0"}
+    {:calendarific, "~> 0.2.1"}
   ]
 end
 ```
